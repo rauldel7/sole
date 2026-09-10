@@ -1,0 +1,95 @@
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '@/context/AuthContext';
+
+export default function Register() {
+  const { signUp } = useAuth();
+  const navigate = useNavigate();
+  const [form, setForm] = useState({ firstName: '', lastName: '', email: '', password: '' });
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    const { error } = await signUp(form.email, form.password, form.firstName, form.lastName);
+    setLoading(false);
+    if (error) {
+      setError(error);
+    } else {
+      navigate('/account');
+    }
+  };
+
+  return (
+    <div className="max-w-md mx-auto px-4 py-12">
+      <h1 className="text-3xl font-bold mb-2 text-center">Skapa konto</h1>
+      <p className="text-neutral-500 text-center mb-8">Bli medlem i SOLE idag</p>
+
+      {error && (
+        <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg p-3 mb-4">
+          {error}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium mb-1.5">Förnamn</label>
+            <input
+              required
+              value={form.firstName}
+              onChange={(e) => setForm({ ...form, firstName: e.target.value })}
+              className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg text-sm focus:border-neutral-900 focus:outline-none transition-colors"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-1.5">Efternamn</label>
+            <input
+              required
+              value={form.lastName}
+              onChange={(e) => setForm({ ...form, lastName: e.target.value })}
+              className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg text-sm focus:border-neutral-900 focus:outline-none transition-colors"
+            />
+          </div>
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1.5">E-post</label>
+          <input
+            type="email"
+            required
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg text-sm focus:border-neutral-900 focus:outline-none transition-colors"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1.5">Lösenord</label>
+          <input
+            type="password"
+            required
+            minLength={6}
+            value={form.password}
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
+            className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg text-sm focus:border-neutral-900 focus:outline-none transition-colors"
+          />
+        </div>
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-neutral-900 text-white py-3.5 rounded-lg font-semibold hover:bg-neutral-800 transition-colors disabled:opacity-50"
+        >
+          {loading ? 'Skapar konto...' : 'Skapa konto'}
+        </button>
+      </form>
+
+      <p className="text-center text-sm text-neutral-500 mt-6">
+        Har du redan ett konto?{' '}
+        <Link to="/login" className="font-medium text-neutral-900 hover:underline">
+          Logga in
+        </Link>
+      </p>
+    </div>
+  );
+}
