@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Phone } from 'lucide-react';
 
 const footerSections = [
   {
@@ -25,6 +26,16 @@ export default function Footer() {
             <p className="text-sm leading-relaxed">
               Premium sneakers och skor för alla tillfällen. Fri frakt över 1000 kr.
             </p>
+            <div className="mt-6">
+              <h4 className="text-white text-sm font-semibold mb-3">Kontakta oss</h4>
+              <a
+                href="tel:0731440653"
+                className="inline-flex items-center gap-2 text-sm hover:text-white transition-colors"
+              >
+                <Phone className="h-4 w-4" aria-hidden="true" />
+                073-144 06 53
+              </a>
+            </div>
           </div>
           {footerSections.map((section) => (
             <div key={section.title}>
