@@ -1,17 +1,35 @@
 import { Link } from 'react-router-dom';
+import { Phone } from 'lucide-react';
 
 const footerSections = [
   {
     title: 'Kundservice',
-    links: ['Kontakt', 'Leverans', 'Retur & Byte', 'Storleksguide', 'FAQ'],
+    links: [
+      { label: 'Kontakt', to: '/' },
+      { label: 'Leverans', to: '/' },
+      { label: 'Retur & Byte', to: '/' },
+      { label: 'Storleksguide', to: '/' },
+      { label: 'FAQ', to: '/' },
+    ],
   },
   {
     title: 'Om SOLE',
-    links: ['Om oss', 'Vårt hållbarhetsarbete', 'Karriär', 'Butiker', 'Press'],
+    links: [
+      { label: 'Om oss', to: '/about' },
+      { label: 'Vårt hållbarhetsarbete', to: '/' },
+      { label: 'Karriär', to: '/' },
+      { label: 'Butiker', to: '/' },
+      { label: 'Press', to: '/' },
+    ],
   },
   {
     title: 'Juridik',
-    links: ['Köpvillkor', 'Integritetspolicy', 'Cookies', 'Medlemsvillkor'],
+    links: [
+      { label: 'Köpvillkor', to: '/' },
+      { label: 'Integritetspolicy', to: '/' },
+      { label: 'Cookies', to: '/' },
+      { label: 'Medlemsvillkor', to: '/' },
+    ],
   },
 ];
 
@@ -25,18 +43,28 @@ export default function Footer() {
             <p className="text-sm leading-relaxed">
               Premium sneakers och skor för alla tillfällen. Fri frakt över 1000 kr.
             </p>
+            <div className="mt-6">
+              <h4 className="text-white text-sm font-semibold mb-3">Kontakta oss</h4>
+              <a
+                href="tel:0731440653"
+                className="inline-flex items-center gap-2 text-sm hover:text-white transition-colors"
+              >
+                <Phone className="h-4 w-4" aria-hidden="true" />
+                073-144 06 53
+              </a>
+            </div>
           </div>
           {footerSections.map((section) => (
             <div key={section.title}>
               <h4 className="text-white text-sm font-semibold mb-4">{section.title}</h4>
               <ul className="space-y-2.5">
                 {section.links.map((link) => (
-                  <li key={link}>
+                  <li key={link.label}>
                     <Link
-                      to="/"
+                      to={link.to}
                       className="text-sm hover:text-white transition-colors"
                     >
-                      {link}
+                      {link.label}
                     </Link>
                   </li>
                 ))}
