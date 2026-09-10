@@ -13,6 +13,7 @@ import OrderSuccess from '@/pages/OrderSuccess';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
 import Account from '@/pages/Account';
+import About from '@/pages/About';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/account" element={<Account />} />
+                  <Route path="/about" element={<About />} />
                 </Routes>
               </main>
               <Footer />
